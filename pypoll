@@ -1,1 +1,47 @@
+import os
+import csv
 
+
+#path to csv file
+poll_data = os.path.join('/Users/mercedesallen/Documents/DS-VIRT-DATA-PT-11-2023-U-LOLC/03-Python/Challenge/PyPoll/Resources/election_data.csv')
+
+ballot = []
+candidates = poll_data['Candidate'].unique().tolist()
+vote_count = {}
+
+#read csv file
+with open(poll_data) as csvfile:
+csvreader = csv.reader(csvfile, delimiter=',')
+csv_header = next(csvreader)
+print(f"Header: {csv_header}")
+
+
+
+#looping through
+for row in csvreader:
+
+
+#The total number of votes cast 369711
+ballot.append(row[0])
+Total= len(ballot)
+print(Total)
+
+#A complete list of candidates who received votes
+
+print("List of candidates who received votes:")
+for candidate in candidates:
+print(candidate)
+
+
+
+#The percentage of votes each candidate won
+percentage = (Total) * 100
+#The total number of votes each candidate won
+if candidate in vote_count:
+vote_count[candidate] += 1
+else:
+vote_count[candidate] = 1
+for candidate, count in vote_count.items():
+print(f"{candidate}: {count} votes")
+#The winner of the election based on popular vote
+winner = vote_count.idxmax()
